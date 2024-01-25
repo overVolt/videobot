@@ -6,7 +6,7 @@ def _send(hub: str, topic: str, callback: str, action: str, verify_token: str=No
         "hub.topic": topic,
         "hub.callback": callback,
         "hub.mode": action,
-        "hub.verify_type": "sync",
+        "hub.verify": "sync",
         "hub.verify_token": verify_token,
     })
     return res
@@ -14,7 +14,7 @@ def _send(hub: str, topic: str, callback: str, action: str, verify_token: str=No
 def _action(action: str, channel: str) -> requests.Response:
     return _send(
         hub=settings.get("HUB_URL"),
-        topic=f"https://www.youtube.com/feeds/videos.xml?channel_id={channel}",
+        topic=f"https://www.youtube.com/xml/feeds/videos.xml?channel_id={channel}",
         callback=settings.get("CALLBACK_URL"),
         action=action,
         verify_token=settings.get("VERIFY_TOKEN")

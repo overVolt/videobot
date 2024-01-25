@@ -13,8 +13,10 @@ class Listener(BaseHTTPRequestHandler):
         if (("hub.challenge" in query) and ("hub.verify_token" in query)
                 and (query["hub.verify_token"][0] == settings.get("VERIFY_TOKEN"))):
             self._write(query["hub.challenge"][0])
+            print("* GET Verified.")
         else:
             self._write("Not found.", 404)
+            print("* GET Rejected.")
 
     def do_POST(self):
         content_length = int(self.headers.get('Content-Length', 0))
