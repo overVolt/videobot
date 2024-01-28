@@ -1,6 +1,7 @@
 import requests
 from modules import settings
 
+
 def _send(hub: str, topic: str, callback: str, action: str, verify_token: str=None) -> requests.Response:
     res = requests.post(hub, data={
         "hub.topic": topic,
@@ -8,8 +9,10 @@ def _send(hub: str, topic: str, callback: str, action: str, verify_token: str=No
         "hub.mode": action,
         "hub.verify": "sync",
         "hub.verify_token": verify_token,
+        "hub.secret": verify_token
     })
     return res
+
 
 def _action(action: str, channel: str) -> requests.Response:
     return _send(
@@ -19,6 +22,7 @@ def _action(action: str, channel: str) -> requests.Response:
         action=action,
         verify_token=settings.get("VERIFY_TOKEN")
     )
+
 
 def subscribe(channel: str) -> requests.Response:
     return _action("subscribe", channel)

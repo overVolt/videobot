@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns="http://www.w3.org/2005/Atom">
+    <link rel="hub" href="https://pubsubhubbub.appspot.com"/>
+    <link rel="self" href="https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCrmNO6NZFip40k91cX8MmWQ"/>
+    <title>YouTube video feed</title>
+    <updated>2024-01-26T16:59:41.115195898+00:00</updated>
+
+    <entry>
+        <id>yt:video:KGh4QEC4J1o</id>
+        <yt:videoId>KGh4QEC4J1o</yt:videoId>
+        <yt:channelId>UCrmNO6NZFip40k91cX8MmWQ</yt:channelId>
+        <title>STALL! STALL! 🦆 #aviazione #reaction stallo</title>
+        <link rel="alternate" href="https://www.youtube.com/watch?v=KGh4QEC4J1o"/>
+
+        <author>
+            <name>Marco Romboli</name>
+            <uri>https://www.youtube.com/channel/UCrmNO6NZFip40k91cX8MmWQ</uri>
+        </author>
+
+        <published>2024-01-26T16:59:11+00:00</published>
+        <updated>2024-01-26T16:59:41.115195898+00:00</updated>
+    </entry>
+</feed>

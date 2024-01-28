@@ -1,7 +1,7 @@
 from time import sleep
 from threading import Thread
 from modules import listener
-from modules import subscriber
+# from modules import subscriber
 
 
 if __name__ == "__main__":
@@ -9,6 +9,7 @@ if __name__ == "__main__":
     Thread(target=listener.run_server).start()
 
     while True:
-        print("* Renewing subscriptions...")
-        subscriber.subscribe_all()
+        # Possibly don't need to renew subscriptions - hub sends renew requests
+        # print("* Renewing subscriptions...")
+        # subscriber.subscribe_all()
         sleep(86400)
