@@ -28,13 +28,5 @@ def subscribe(channel: str) -> requests.Response:
     return _action("subscribe", channel)
 
 
-def unsubscribe(channel: str) -> requests.Response:
-    return _action("unsubscribe", channel)
-
-
 def subscribe_all() -> list[requests.Response]:
-    return [_action("subscribe", channel) for channel in settings.get("channels")]
-
-
-def unsubscribe_all() -> list[requests.Response]:
-    return [_action("unsubscribe", channel) for channel in settings.get("channels")]
+    return [subscribe(channel) for channel in settings.get("channels")]

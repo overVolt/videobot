@@ -1,9 +1,8 @@
 import hmac
 from hashlib import sha1
-from base64 import b64encode
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
-from modules import settings
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from modules import settings, parser
 
 
 class Listener(BaseHTTPRequestHandler):
@@ -19,30 +18,26 @@ class Listener(BaseHTTPRequestHandler):
             self._write(query["hub.challenge"][0])
             print("* GET Verified.")
         else:
-            self._write("Not found.", 404)
+            self._write("Invalid token.", 404)
             print("* GET Rejected.")
 
     def do_POST(self):
         content_length = int(self.headers.get('Content-Length', 0))
         body = self.rfile.read(content_length)
 
-        secret = settings.get("VERIFY_TOKEN")
         signature = self.headers.get('X-Hub-Signature', '')
-        digest = hmac.new(secret.encode('utf-8'), msg=body, digestmod=sha1).digest()
-        computed_signature = "sha1=" + b64encode(digest).decode('utf-8')
+        secret = settings.get("VERIFY_TOKEN").encode('utf-8')
+        digest = hmac.new(secret, body, sha1).hexdigest()
+        computed_signature = "sha1=" + digest
 
-        #if signature != computed_signature:
-        #    print("* POST Rejected.")
-        #    self._write("HMAC signature mismatch.")
-        #    return
-
-        print("--- HEADERS ---")
-        print(self.headers)
-        print("--- BODY ---")
-        print(body.decode('utf-8'))
-        print(f"Origin: {signature} | Computed: {computed_signature}")
+        if signature != computed_signature:
+            self._write("HMAC signature mismatch.")
+            print("* POST Rejected.")
+            return
 
         self._write("OK")
+        parser.parse_feed(body.decode('utf-8'))
+        print("* POST Verified.")
 
 
 def run_server():

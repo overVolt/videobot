@@ -1,7 +1,6 @@
 from time import sleep
 from threading import Thread
-from modules import listener
-# from modules import subscriber
+from modules import listener, subscriber
 
 
 if __name__ == "__main__":
