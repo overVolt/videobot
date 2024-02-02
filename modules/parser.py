@@ -10,9 +10,9 @@ bot = Bot(settings.get("BOT_TOKEN"))
 
 
 @db_session
-def send_video(video: Video):
+def send_news(video: Video):
     bot.sendMessage(settings.get("CHAT_ID"), parse_mode="HTML",
-                    text=f"Nuovo video!\n\n"
+                    text=f"Nuovo video su {video.author}!\n\n"
                          f"<b>{video.title}</b>\n\n"
                          f"Guardalo ora! youtu.be/{video.id}")
 
@@ -30,5 +30,5 @@ def parse_feed(feed: str):
             )
 
         if not video.processed:
-            send_video(video)
+            send_news(video)
             video.processed = True
