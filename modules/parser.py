@@ -26,7 +26,7 @@ def parse_feed(feed: str):
                 id=entry["yt_videoid"],
                 title=entry["title"],
                 author=entry["author"],
-                publish_date=datetime.fromtimestamp(mktime(entry["published_parsed"]))
+                publish_time=datetime.fromtimestamp(mktime(entry["published_parsed"]))
             )
 
         if not video.processed:
