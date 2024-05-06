@@ -2,8 +2,8 @@ import feedparser
 from time import mktime
 from requests import get
 from telepotpro import Bot
-from datetime import datetime
 from pony.orm import db_session
+from datetime import datetime, timedelta
 from modules import settings
 from modules.database import Video
 
@@ -59,8 +59,7 @@ def parse_feed(feed: str):
             )
 
         if not video.processed:
-            # Scarta shorts
             duration = get_video_duration(video.id)
-            if duration > 90:
+            if duration > 90 and video.publish_time > datetime.now()-timedelta(minutes=10):
                 send_news(video)
             video.processed = True
