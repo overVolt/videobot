@@ -60,6 +60,6 @@ def parse_feed(feed: str):
 
         if not video.processed:
             duration = get_video_duration(video.id)
-            if duration > 90 and video.publish_time > datetime.now()-timedelta(minutes=10):
+            if duration > 90 and video.publish_time > datetime.now()-timedelta(hours=12):
                 send_news(video)
             video.processed = True
